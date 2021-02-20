@@ -11,6 +11,11 @@ local ffi = require 'ffi'
 local lsampev, sampev = pcall(require, 'samp.events') -- https://github.com/THE-FYP/SAMP.Lua
 local lwm, wm = pcall(require, 'lib.windows.message')
 local lmemory, memory = pcall(require, 'memory')
+local lencoding, encoding = pcall(require, 'encoding') assert(lencoding, 'Library \'encoding\' not found.')			 
+
+encoding.default = 'CP1251'
+u8 = encoding.UTF8
+CP1251 = encoding.CP1251
 
 ffi.cdef [[
 	typedef void* HANDLE;
@@ -107,7 +112,7 @@ end
 function checklibs() -- с этой строки и до конца
 	if not lsampev then
 		lua_thread.create(function()
-			print('Подгрузка необходимых библиотек..')
+			print(u8:decode'Подгрузка необходимых библиотек..')
 			--samp.lua 
 			createDirectory(getWorkingDirectory()..'\\lib\\samp')
 			createDirectory(getWorkingDirectory()..'\\lib\\samp\\events')
@@ -127,7 +132,7 @@ function checklibs() -- с этой строки и до конца
 		 	while not doesFileExist(getWorkingDirectory()..'\\lib\\samp\\events\\handlers.lua') do wait(0) end
 			downloadFile('utils', getWorkingDirectory()..'\\lib\\samp\\events\\utils.lua', 'https://raw.githubusercontent.com/THE-FYP/SAMP.Lua/master/samp/events/utils.lua')
 		 	while not doesFileExist(getWorkingDirectory()..'\\lib\\samp\\events\\utils.lua') do wait(0) end				
-			print('Подгрузка необходимых библиотек окончена. Перезагружаюсь..')
+			print(u8:decode'Подгрузка необходимых библиотек окончена. Перезагружаюсь..')
 			noErrorDialog = true
 			wait(1000)
 			thisScript():reload()
@@ -141,7 +146,7 @@ function downloadFile(name, path, link)
 	if not doesFileExist(path) then 
 		downloadUrlToFile(link, path, function(id, status, p1, p2)
 			if status == dlstatus.STATUSEX_ENDDOWNLOAD then
-				print('Файл {006AC2}«'..name..'»{FFFFFF} загружен!')
+				print(u8:decode'Файл {006AC2}«'..name..u8:decode'»{FFFFFF} загружен!')
 			end
 		end)
 	end
