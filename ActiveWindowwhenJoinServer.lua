@@ -61,6 +61,7 @@ function main()
 			memory.write(0x74805A, 0x1, 1, true)
 			memory.fill(0x74542B, 0x90, 8, true)
 			memory.fill(0x53EA88, 0x90, 6, true)
+			memory.fill(0x748A8D, 0x90, 6, true)
 			lockPlayerControl(true)
 			active = true
 		elseif msg == wm.WM_SETFOCUS then
@@ -69,6 +70,7 @@ function main()
 			memory.write(0x74805A, 0x0, 1, true)
 			memory.hex2bin('5051FF1500838500', 0x74542B, 8)
 			memory.hex2bin('0F847B010000', 0x53EA88, 6)
+			memory.hex2bin('0F8420030000', 0x748A8D, 6)
 			lockPlayerControl(false)
 			active = false
 		end
