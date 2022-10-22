@@ -48,7 +48,6 @@ ffi.cdef [[
 	BOOL AttachThreadInput(DWORD idAttach, DWORD idAttachTo, BOOL  fAttach);
 ]]
 
-
 local active = true
 function main()
 	if not isSampfuncsLoaded() or not isSampLoaded() then return end
@@ -61,7 +60,6 @@ function main()
 			memory.write(0x747FB6, 0x1, 1, true)
 			memory.write(0x74805A, 0x1, 1, true)
 			memory.fill(0x74542B, 0x90, 8, true)
-			memory.fill(0x53EA88, 0x90, 6, true)
 			memory.fill(0x53EA88, 0x90, 6, true)
 			lockPlayerControl(true)
 			active = true
